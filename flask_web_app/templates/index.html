@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Translation App</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Healthcare Translation App</h1>
+        <form id="audioForm" enctype="multipart/form-data">
+            <label for="audio_file">Upload Audio:</label>
+            <input type="file" id="audio_file" name="audio_file" accept="audio/*" required>
+            
+            <label for="target_language">Select Target Language:</label>
+            <select id="target_language" name="target_language">
+                <option value="es">Spanish</option>
+                <option value="fr">French</option>
+                <option value="de">German</option>
+                <option value="zh">Chinese</option>
+            </select>
+            
+            <button type="submit">Translate</button>
+        </form>
+
+        <div id="result">
+            <h3>Results:</h3>
+            <p id="transcribed_text"></p>
+            <p id="translated_text"></p>
+            <audio id="audio_output" controls></audio>
+        </div>
+    </div>
+    <script>
+        const form = document.getElementById("audioForm");
+        form.onsubmit = async (event) => {
+            event.preventDefault();
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch("/process_audio", {
+                    method: "POST",
+                    body: formData
+                });
+                const result = await response.json();
+
+                if (result.error) {
+                    alert(result.error);
+                    return;
+                }
+
+                document.getElementById("transcribed_text").innerText = `Transcribed: ${result.transcribed_text}`;
+                document.getElementById("translated_text").innerText = `Translated: ${result.translated_text}`;
+                const audioElement = document.getElementById("audio_output");
+                audioElement.src = result.audio_output_url;
+                audioElement.style.display = "block";
+            } catch (error) {
+                alert("An error occurred while processing the audio.");
+            }
+        };
+    </script>
+</body>
+</html>

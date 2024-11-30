@@ -1,0 +1,6 @@
+requests==2.32.3
+pydub==0.25.1
+translate==3.6.1
+gtts==2.5.4
+flask==3.1.0
+# tempfile
