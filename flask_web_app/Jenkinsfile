@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 echo 'Pulling code from Git repository...'
-                git branch: "${GIT_BRANCH}", url: 'https://github.com/hanzalagithub/Healthcare_Translation_Web_App_with_Generative_AI/flask_web_app.git'
+                git branch: "${GIT_BRANCH}", url: 'https://github.com/hanzalagithub/Healthcare_Translation_Web_App_with_Generative_AI.git'
             }
         }
 
@@ -46,7 +46,7 @@ pipeline {
                     git config --global user.name "$GITHUB_USERNAME"
                     git config --global user.email "$GITHUB_USERNAME@gmail.com"
                     git tag v${VERSION}
-                    git push https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/hanzalagithub/Healthcare_Translation_Web_App_with_Generative_AI/flask_web_app.git v${VERSION}
+                    git push https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/hanzalagithub/Healthcare_Translation_Web_App_with_Generative_AI.git v${VERSION}
                     """
                 }
             }
