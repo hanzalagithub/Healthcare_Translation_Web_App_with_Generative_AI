@@ -20,4 +20,4 @@ sudo systemctl start docker
 sudo systemctl enable docker
 
 # Run the Docker container exposing port 5000
-docker run -d -p 5000:5000 faizrazadec/translator:0.0.4
+docker run -d -p 5000:5000 ahmedhanzala01/translator:0.0.3
